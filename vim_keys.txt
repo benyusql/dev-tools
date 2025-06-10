@@ -1,0 +1,59 @@
+https://github.com/bryant-video/neovim-tutorial
+
+Three Modes: 
+	1) Normal Mode
+	2) Insert Mode
+	3) Visual Mode
+
+Move cursor: 
+	1) h,j,k,l
+	2) 3j --> move next 3 lines, 3h, 3l, 3k etc
+	3) w --> move a word to right, 2w, b, 2b etc.
+	4) $ --> move to end of line, ^ | 0 --> move to the start of line
+	5) 8gg/:8 --> move to line 8
+	6) G --> move to the last line, gg --> to the first line.
+	7) SHIFT+} --> move to next paragraph, SHIFT+{ --> previous paragraph
+	8) i --> insert at the cursor, a --> insert after the cursor.
+	9) o --> insert from the next line, SHIFT+O --> insert from the above line
+	10) SHIFT+i --> insert from the beging of the line, SHIFT+a, insert from the end of the line.
+	11) SHIFT + A --> insert at the end of the line.
+	12) c$ --> delete everything after cursor and insert, cw --> delete word and insert.
+      	    ciw --> delete the word when cursor is in the middle of it and then insert.
+	13) yw -->  to yank from the cursor to the start of the next word (includes trailing whitespace).
+      	    yiw -->  to yank only the current word (no trailing spaces)
+			or v + l  to the end of char, then y
+
+Serach/Find/Replace
+	:/[pattern] --> n: find the next, SHIFT+n: find the previous.
+	:%s/foo/bar/g --> replace all foo with bar.
+	:10,20s/foo/bar/g --> replace foo between line 10 to line 20 with bar 
+	:/foo   --> search the word foo, n --> next match, Shirt+N --> prev match 
+	:s/foo  --> search the word foo
+	:s/foo/gi --> search the word foo in case insensitive way
+	* --> search the word in the cursor, # --> back search the word
+	:nohlsearch or nohl or :noh --> remove the highlight for the previous search.
+
+Copy/Paster in normal model
+	1) dd -> goto the line -> p --> paste the line after it, 3dd: cut three lines
+	2) yy -> goto the line -> p --> paste the line after it, 3dd: copy three lines
+	3) u --> undo; CTRL+r --> redo
+	4) dw, yw, d$, y$ etc.
+        5) :%y --> yank all lines :%y+ --> yank and also copy to Windows system clipboard if supported
+        6) d2te --> delete after cursor to the seond 'e' (exclusive) in current word.
+	7) d2fe --> delete after the cursor to the second 'e' (inclusive) in the current word.
+
+Visual Mode:
+	1) Visual Character, v --> enter visual mode, use h,j,k,l to copy lines and chars, then y, p
+	2) Visual Line, SHIFT+v --> 
+	3) Visual Block, ctrl+v
+
+Vim Tabs
+	1) open a new tab --> :tabnew
+	3) toggle between tabs --> :tabn for next, :tabp for previous. or :tabn <n> ; :tabp <n>
+	3) command to open file --> o file_name
+	4) command to edit a file --> :e <tab> will show the files under current directory.
+	5) move the tab's position --> :tabmove 0 (move to the first)
+
+Vim Command
+	1) Seting vertical line at 80 and 120
+	   :set colorcolumn=80,120
