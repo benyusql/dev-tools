@@ -225,4 +225,100 @@ Coordinate with them! They'll need to:
 $ git fetch origin
 $ git reset --hard origin/your-feature-branch  # WARNING: discards their local changes
 
-Use force push (--force-with-lease) unless you have a specific reason to delete the remote branch.
+-------------------------------------------------------------------------
+Based on your scenario, here's the optimal approach to merge your release branch into master while handling the author email issue:
+Step-by-Step Solution
+
+    Create the Merge Branch from Remote Master (via GUI)
+
+        In GitHub/GitLab:
+
+            Go to your repository
+
+            Create a new branch: merge_db_jul_release_master
+
+            Base branch: master (ensure it's the latest)
+
+        This ensures your starting point matches the remote master exactly
+
+    Pull the New Branch Locally
+    bash
+
+git fetch origin
+git checkout merge_db_jul_release_master
+
+Merge Your Release Branch
+bash
+
+git merge origin/release-branch-name
+
+    Resolve any conflicts if they occur
+
+    Commit the merge with your correct email:
+    bash
+
+    git config user.email "g.yu@abc.com"  # Verify this is set!
+    git commit  # Will create merge commit with your email
+
+Verify Commit Authors
+bash
+
+git log --pretty=format:"%h - %an <%ae>"
+
+Ensure:
+
+    All new commits show g.yu@abc.com
+
+    Commits from other users (like Vitaly) show their original emails
+
+Push to Create PR
+bash
+
+    git push -u origin merge_db_jul_release_master
+
+Why This Should Work
+
+    By creating the branch from remote master via GUI:
+
+        You start with all existing master commits (including Vitaly's)
+
+        The server already accepted Vitaly's commit in master, so it shouldn't reject it again
+
+    When you merge your release branch:
+
+        Only new commits from release are added
+
+        The merge commit will be authored by you with g.yu@abc.com
+
+    The author check should only care about:
+
+        New commits being added to the repository
+
+        Not existing commits already in master
+
+If You Still Get Email Errors
+
+If the error persists for a specific commit (like Vitaly's), contact your repo admin to:
+
+    Check if their pre-receive hook properly handles commits already in protected branches
+
+    Verify if Vitaly's email vitaly.dell@abc.com is whitelisted in the hook configuration
+
+Alternative Safe Approach
+
+If you want to be 100% sure to avoid errors:
+bash
+
+# After creating branch from GUI
+git checkout merge_db_jul_release_master
+
+# Merge release without creating a commit
+git merge origin/release-branch-name --no-commit
+
+# Explicitly set author for the merge commit
+git commit --author="g.yu <g.yu@abc.com>" -m "Merge release into master"
+
+# Push
+git push origin merge_db_jul_release_master
+
+This guarantees the merge commit has your correct email while preserving all existing commit authors unchanged.Use force push (--force-with-lease) unless you have a specific reason to delete the remote branch.
