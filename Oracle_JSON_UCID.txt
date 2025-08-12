@@ -321,4 +321,8 @@ git commit --author="g.yu <g.yu@abc.com>" -m "Merge release into master"
 # Push
 git push origin merge_db_jul_release_master
 
-This guarantees the merge commit has your correct email while preserving all existing commit authors unchanged.Use force push (--force-with-lease) unless you have a specific reason to delete the remote branch.
+This guarantees the merge commit has your correct email while preserving all existing commit authors unchanged.
+
+You wouldn¿t want to write temporary code on the fly to address very rare production database issues, like the T+1 settlement issue we encountered last time. This approach is both time-consuming and error-prone. A better strategy is to proactively anticipate such potential problems, develop corresponding database APIs, and configure templates within the DML template system that call these APIs. If a related issue arises, the APS team will know exactly which template to use. This approach can significantly reduce both the response time and resolution time when triaging production database problems.
+
+
